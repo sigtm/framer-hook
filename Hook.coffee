@@ -4,12 +4,39 @@ Hook module for Framer
 --------------------------------------------------------------------------------
 
 The Hook module simply expands the Layer prototype, and lets you make any
-numeric Layer property follow a property on another object via a spring or
-a gravity attraction.
+numeric Layer property follow another property - either its own or another
+object's - via a spring or gravity attraction.
 
 
 --------------------------------------------------------------------------------
-Simple example
+Example: Layered animation (eased + spring)
+--------------------------------------------------------------------------------
+
+myLayer = new Layer
+
+# Make our own custom property for the x property to follow
+myLayer.easedX = 0
+
+# Hook x to easedX via a spring
+myLayer.hook
+	property: "x"
+	targetProperty: "easedX"
+	type: "spring(150, 15)"
+
+# Animate easedX
+myLayer.animate
+	properties:
+		easedX: 200
+	time: 0.15
+	curve: "cubic-bezier(0.2, 0, 0.4, 1)"
+
+NOTE: 
+To attach both the x and y position, use "pos", "midPos" or "maxPos" as the
+property/targetProperty.
+
+
+--------------------------------------------------------------------------------
+Example: Hooking property to another layer
 --------------------------------------------------------------------------------
 
 target = new Layer
@@ -22,9 +49,6 @@ hooked.hook
 
 The "hooked" layer's scale will now continuously follow the target layer's scale
 with a spring animation.
-
-To attach both the x and y position, use "pos", "midPos" or "maxPos" as the
-property/target property.
 
 
 --------------------------------------------------------------------------------
@@ -40,16 +64,16 @@ property [String]
 The property you'd like to hook onto another object's property
 
 
-to [Object]
------------
-The object to attach it to
-
-
 type [String]
 -------------
 Either "spring(strength, friction)" or "gravity(strength, drag)". Only the last
 specified drag value is used for each property, since it is only applied to
 each property once (and only if it has a gravity hook applied to it.)
+
+
+to [Object] (Optional)
+----------------------
+The object to attach it to. Defaults to itself.
 
 
 targetProperty [String] (Optional)
@@ -72,7 +96,6 @@ drag calculations. Only one value is stored per layer, so specifying it
 overwrites its existing value. Default is 100.
 
 
-
 --------------------------------------------------------------------------------
 layer.unHook(property, object)
 --------------------------------------------------------------------------------
@@ -83,7 +106,7 @@ This removes all hooks for a given property and target object. Example:
 layer.hook
 	property: "x"
 	to: "otherlayer"
-	targetproperty: "y"
+	targetProperty: "y"
 	type: "spring(200,20)"
 
 # Unhook it
@@ -124,7 +147,7 @@ unless String.prototype.includes
 
 Layer::hook = (config) ->
 
-	throw new Error 'layer.hook() needs a property, a target object and a hook type to work' unless config.property and config.to and config.type
+	throw new Error 'layer.hook() needs a property, a hook type and either a target object or target property to work' unless config.property and config.type and (config.to or config.targetProperty)
 
 	# Single array for all hooks, as opposed to nested arrays per property, because performance
 	@hooks ?=
@@ -150,8 +173,9 @@ Layer::hook = (config) ->
 	config.strength = f.args[0]
 	config.friction = f.args[1] or 0
 
-	# Follow same property on target object by default
+	# Default to same targetProperty on same object (hopefully you've set at least one of these to something else)
 	config.targetProperty ?= config.property
+	config.to ?= @
 
 	# All position accelerations are added to a single 'pos' velocity. Store actual properties so we don't have to do it again every frame
 
