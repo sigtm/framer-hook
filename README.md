@@ -10,34 +10,34 @@ A more thorough documentation is included in the comments at the top of Hook.cof
 
 ### Example: Layered animation (eased + spring)
 
-`
+```
 myLayer = new Layer
 
-\# Make our own custom property for the x property to follow
+# Make our own custom property for the x property to follow
 myLayer.easedX = 0
 
-\# Hook x to easedX via a spring
+# Hook x to easedX via a spring
 myLayer.hook
 	property: "x"
 	targetProperty: "easedX"
 	type: "spring(150, 15)"
 
-\# Animate easedX
+# Animate easedX
 myLayer.animate
 	properties:
 		easedX: 200
 	time: 0.15
 	curve: "cubic-bezier(0.2, 0, 0.4, 1)"
-`
+```
 
 NOTE: 
 To attach both the x and y position, use "pos", "midPos" or "maxPos" as the
 property/targetProperty.
 
 
-## Example: Hooking property to another layer
+### Example: Hooking property to another layer
 
-`
+```
 target = new Layer
 hooked = new Layer
 
@@ -45,7 +45,7 @@ hooked.hook
 	property: "scale"
 	to: target
 	type: "spring(150, 15)"
-`
+```
 
 The "hooked" layer's scale will now continuously follow the target layer's scale
 with a spring animation.
