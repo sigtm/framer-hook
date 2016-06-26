@@ -1,5 +1,5 @@
 # framer-hook
-A module for Framer that lets you easily hook a layer's property onto another object via spring or gravity.
+The Hook module expands Framer's Layer prototype, and lets you make any numeric Layer property follow another property - either its own or another object's - via a spring or gravity attraction.
 
 The original use case was to layer a spring animation on top of an eased animation, to give more control over the timing and feel of a transition. Please see the spring example (hook-example-spring.framer) to get a better idea how the level of control it gives you.
 
