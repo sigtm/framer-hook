@@ -6,14 +6,16 @@ The Hook module expands Framer's Layer prototype, and lets you make any numeric 
 Enough chat. Examples:
 
 [Example 1: Easing + spring](http://www.sigurd.io/framer-hook/hook-example-spring.framer/)
+
 [Example 2: Modulation from one property type to another](http://www.sigurd.io/framer-hook/hook-example-modulator.framer/)
+
 [Example 3: Gravity, too](http://www.sigurd.io/framer-hook/hook-example-gravity.framer/)
 
 The original use case was to layer a spring animation on top of an eased animation to give more control over the timing and feel of a transition, as seen in Example 1. You do not need two layers to achieve this though, as shown in the first code snippet below.
 
 I'm not a developer nor a mathematician, so much of this is improvised, particularly the physics. Please do let me know, or create a pull request, if you have any suggestions for improvements.
 
-A more thorough documentation is included in the comments at the top of Hook.coffee.
+For a more detailed documentation, check the comments at the top of Hook.coffee.
 
 
 ### Example: Layered animation (eased + spring)
@@ -57,3 +59,24 @@ hooked.hook
 
 The "hooked" layer's scale will now continuously follow the target layer's scale
 with a spring animation.
+
+
+### Example: Adding a modulator function
+
+The modulator function allows you to do anything you want with the target property's value before it is applied. As a very basic example, let's say you want to convert one layer's y position into a corresponding scale value for another layer:
+
+```
+target = new Layer
+hooked = new Layer
+
+hooked.hook
+	property: "scale"
+	to: target
+	targetProperty: "y"
+	type: "spring(200,20)"
+	modulator: (input) -> Utils.modulate(input, [0, 400], [0.5, 1])
+```
+
+### Documentation
+
+A more thorough documentation is included in the comments at the top of Hook.coffee.
