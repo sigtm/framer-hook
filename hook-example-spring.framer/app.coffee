@@ -3,6 +3,12 @@
 Hook example
 --------------
 
+Note: This example uses two layers to illustrate the concept more clearly, but
+the separate layer for the eased animation is unnecessary. We could just as easily
+have created another property, say layer.easedX, and hooked the x property to that.
+Then you'd just run layer.animate() on the easedX property like you would any
+other property.
+
 The Hook module simply expands the Layer prototype, and lets you make any
 numeric Layer property follow a property on another object via a spring or a
 gravity attraction. Check the comments in modules/Hook.coffee for a more thorough

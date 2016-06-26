@@ -1,7 +1,15 @@
-# framer-hook
+# Hook module for Framer
+![Spring example](http://www.sigurd.io/framer-hook/hook-example-spring.framer/spring-example-720.gif)
+
 The Hook module expands Framer's Layer prototype, and lets you make any numeric Layer property follow another property - either its own or another object's - via a spring or gravity attraction.
 
-The original use case was to layer a spring animation on top of an eased animation, to give more control over the timing and feel of a transition. Please see the spring example (hook-example-spring.framer) to get a better idea how the level of control it gives you.
+Enough chat. Examples:
+
+[Example 1: Easing + spring](http://www.sigurd.io/framer-hook/hook-example-spring.framer/)
+[Example 2: Modulation from one property type to another](http://www.sigurd.io/framer-hook/hook-example-modulator.framer/)
+[Example 3: Gravity, too](http://www.sigurd.io/framer-hook/hook-example-gravity.framer/)
+
+The original use case was to layer a spring animation on top of an eased animation to give more control over the timing and feel of a transition, as seen in Example 1. You do not need two layers to achieve this though, as shown in the first code snippet below.
 
 I'm not a developer nor a mathematician, so much of this is improvised, particularly the physics. Please do let me know, or create a pull request, if you have any suggestions for improvements.
 
