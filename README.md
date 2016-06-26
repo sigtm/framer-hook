@@ -8,21 +8,21 @@ I'm not a developer nor a mathematician, so much of this is improvised, particul
 A more thorough documentation is included in the comments at the top of Hook.coffee.
 
 
-## Example: Layered animation (eased + spring)
+### Example: Layered animation (eased + spring)
 
 `
 myLayer = new Layer
 
-# Make our own custom property for the x property to follow
+\# Make our own custom property for the x property to follow
 myLayer.easedX = 0
 
-# Hook x to easedX via a spring
+\# Hook x to easedX via a spring
 myLayer.hook
 	property: "x"
 	targetProperty: "easedX"
 	type: "spring(150, 15)"
 
-# Animate easedX
+\# Animate easedX
 myLayer.animate
 	properties:
 		easedX: 200
