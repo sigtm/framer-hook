@@ -215,9 +215,8 @@ Layer::hook = (config) ->
 	@hooks.velocities[config.prop] ?= if config.prop is 'pos' then { x: 0, y: 0 } else 0
 
 	# Use Framer's animation loop, slightly more robust than requestAnimationFrame directly
-	Framer.Loop.on 'render', @hookLoop, this
-
-
+	# Save the returned AnimationLoop reference to make sure @hookLoop isn't added multiple times per layer
+	@hooks.emitter ?= Framer.Loop.on('render', @hookLoop, this)
 
 Layer::unHook = (property, object) ->
 	
