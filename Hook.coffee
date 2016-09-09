@@ -3,6 +3,12 @@
 Hook module for Framer
 --------------------------------------------------------------------------------
 
+by:      Sigurd Mannsåker
+github:  https://github.com/sigtm/framer-hook
+
+················································································
+
+
 The Hook module simply expands the Layer prototype, and lets you make any
 numeric Layer property follow another property - either its own or another
 object's - via a spring or gravity attraction.
